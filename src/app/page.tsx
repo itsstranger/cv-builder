@@ -14,34 +14,10 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 const Page: FC = () => {
   const [cvData, setCvData] = useLocalStorage<CvData>('cv-data', initialCvData);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
+  
   const handlePrint = () => {
     window.print();
   };
-  
-  if (!isClient) {
-    return (
-       <div className="min-h-screen w-full bg-background relative overflow-hidden p-4 md:p-6">
-        <header className="container mx-auto flex items-center justify-between p-4 md:p-6">
-            <Skeleton className="h-8 w-64" />
-            <Skeleton className="h-10 w-36 rounded-full" />
-        </header>
-        <main className="container mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 mt-8">
-            <div className="lg:col-span-5">
-                <Skeleton className="h-[80vh] w-full rounded-lg" />
-            </div>
-            <div className="lg:col-span-7">
-                <Skeleton className="h-[80vh] w-full aspect-[210/297] max-w-[800px] mx-auto rounded-lg" />
-            </div>
-        </main>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen w-full bg-background relative overflow-hidden">
