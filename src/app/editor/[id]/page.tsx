@@ -19,7 +19,7 @@ interface EditorPageProps {
   };
 }
 
-const EditorPage: FC<EditorPageProps> = ({ params }) => {
+const EditorPage: FC<EditorPageProps> = ({ params: { id } }) => {
   const router = useRouter();
   const [cvs, setCvs] = useLocalStorage<CvData[]>('cv-list', []);
   const [cvData, setCvData] = useState<CvData | null>(null);
@@ -27,7 +27,7 @@ const EditorPage: FC<EditorPageProps> = ({ params }) => {
   
   useEffect(() => {
     setIsClient(true);
-    const currentCv = cvs.find(cv => cv.id === params.id);
+    const currentCv = cvs.find(cv => cv.id === id);
     if (currentCv) {
       setCvData(currentCv);
     } else if (cvs.length > 0) {
@@ -35,12 +35,12 @@ const EditorPage: FC<EditorPageProps> = ({ params }) => {
       // For now, let's just use the first one if it exists
       // router.push('/'); 
     }
-  }, [params.id, cvs, router]);
+  }, [id, cvs]);
 
   const updateCvData = (updatedCv: CvData) => {
     setCvData(updatedCv);
     setCvs(prevCvs => 
-      prevCvs.map(cv => (cv.id === params.id ? updatedCv : cv))
+      prevCvs.map(cv => (cv.id === id ? updatedCv : cv))
     );
   };
 

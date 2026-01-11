@@ -18,7 +18,7 @@ interface PreviewPageProps {
   };
 }
 
-const PreviewPage: FC<PreviewPageProps> = ({ params }) => {
+const PreviewPage: FC<PreviewPageProps> = ({ params: { id } }) => {
   const router = useRouter();
   const [cvs] = useLocalStorage<CvData[]>('cv-list', []);
   const [cvData, setCvData] = useState<CvData | null>(null);
@@ -26,13 +26,13 @@ const PreviewPage: FC<PreviewPageProps> = ({ params }) => {
   
   useEffect(() => {
     setIsClient(true);
-    const currentCv = cvs.find(cv => cv.id === params.id);
+    const currentCv = cvs.find(cv => cv.id === id);
     if (currentCv) {
       setCvData(currentCv);
     } else if (cvs.length > 0) {
       // router.push('/');
     }
-  }, [params.id, cvs, router]);
+  }, [id, cvs]);
 
   const handlePrint = () => {
     window.print();
@@ -54,7 +54,7 @@ const PreviewPage: FC<PreviewPageProps> = ({ params }) => {
               Back to Dashboard
             </Button>
             <div className="flex items-center gap-2">
-                <Button variant="secondary" onClick={() => router.push(`/editor/${params.id}`)} className="rounded-full">
+                <Button variant="secondary" onClick={() => router.push(`/editor/${id}`)} className="rounded-full">
                     <Edit />
                     Edit
                 </Button>
