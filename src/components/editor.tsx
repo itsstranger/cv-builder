@@ -1,3 +1,4 @@
+
 "use client";
 
 import type { Dispatch, SetStateAction, FC } from 'react';
@@ -290,4 +291,10 @@ const Editor: FC<EditorProps> = ({ cvData, setCvData }) => {
         </Button>
         <Button onClick={nextStep} disabled={currentStep === steps.length - 1}>
           Next <ArrowRight />
-        </
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+export default Editor;
