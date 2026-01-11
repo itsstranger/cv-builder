@@ -28,6 +28,7 @@ export interface Project {
 export interface CvData {
   id?: string;
   name?: string;
+  template?: 'classic' | 'modern';
   personalInfo: PersonalInfo;
   profile: string;
   experience: WorkExperience[];

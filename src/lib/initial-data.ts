@@ -1,6 +1,7 @@
 import type { CvData } from './types';
 
 export const initialCvData: Omit<CvData, 'id' | 'name'> = {
+  template: 'classic',
   personalInfo: {
     name: 'Jane Doe',
     jobTitle: 'Computer Science Student',
@@ -33,7 +34,7 @@ export const initialCvData: Omit<CvData, 'id' | 'name'> = {
     },
     {
       name: 'E-commerce Platform',
-      description: '• Built a full-stack e-commerce site with user authentication, product catalog, and payment integration.'
+      description: '• Built a full-stack e-commerce website with features like product listing, shopping cart, and checkout.'
     }
-  ],
+  ]
 };

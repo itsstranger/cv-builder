@@ -2,6 +2,7 @@
 
 import type { Dispatch, SetStateAction, FC } from 'react';
 import React, { useState } from 'react';
+import Image from 'next/image';
 import {
   BrainCircuit,
   Contact,
@@ -13,7 +14,8 @@ import {
   ArrowRight,
   PlusCircle,
   Trash2,
-  Briefcase
+  Briefcase,
+  LayoutTemplate
 } from 'lucide-react';
 
 import type { CvData, Education, Project, WorkExperience } from '@/lib/types';
@@ -24,6 +26,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ui/accordion';
+import { cn } from '@/lib/utils';
+import classicTemplateImg from '@/../public/template-classic.png';
+import modernTemplateImg from '@/../public/template-modern.png';
+
 
 interface EditorProps {
   cvData: CvData;
@@ -32,6 +38,7 @@ interface EditorProps {
 
 const steps = [
   { id: 'personal-info', name: 'Personal Info', icon: Contact },
+  { id: 'template', name: 'Template', icon: LayoutTemplate },
   { id: 'profile', name: 'Profile', icon: User },
   { id: 'experience', name: 'Experience', icon: Briefcase },
   { id: 'education', name: 'Education', icon: GraduationCap },
@@ -39,6 +46,11 @@ const steps = [
   { id: 'projects', name: 'Projects', icon: Lightbulb },
   { id: 'ai-suggestions', name: 'AI Suggestions', icon: BrainCircuit },
 ];
+
+const templates = [
+  { id: 'classic', name: 'Classic', image: classicTemplateImg },
+  { id: 'modern', name: 'Modern', image: modernTemplateImg },
+]
 
 const Editor: FC<EditorProps> = ({ cvData, setCvData }) => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -203,6 +215,25 @@ const Editor: FC<EditorProps> = ({ cvData, setCvData }) => {
             </div>
           </div>
         )}
+        
+        {steps[currentStep].id === 'template' && (
+          <div className="p-1 animate-in fade-in-50">
+            <div className="grid grid-cols-2 gap-4">
+              {templates.map(template => (
+                <div key={template.id} 
+                    onClick={() => setCvData(prev => ({ ...prev, template: template.id as 'classic' | 'modern' }))}
+                    className={cn(
+                        "cursor-pointer rounded-lg border-2 transition-all",
+                        cvData.template === template.id ? "border-primary ring-2 ring-primary/50" : "border-border hover:border-primary/50"
+                    )}
+                >
+                  <Image src={template.image} alt={template.name} className="rounded-md" />
+                  <p className="text-center text-sm font-medium p-2">{template.name}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {steps[currentStep].id === 'profile' && (
            <div className="p-1 animate-in fade-in-50">
@@ -259,10 +290,4 @@ const Editor: FC<EditorProps> = ({ cvData, setCvData }) => {
         </Button>
         <Button onClick={nextStep} disabled={currentStep === steps.length - 1}>
           Next <ArrowRight />
-        </Button>
-      </div>
-    </div>
-  );
-};
-
-export default Editor;
+        </
