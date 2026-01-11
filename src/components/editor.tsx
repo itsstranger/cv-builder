@@ -28,9 +28,6 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ui/accordion';
 import { cn } from '@/lib/utils';
-import classicTemplateImg from '@/../public/template-classic.png';
-import modernTemplateImg from '@/../public/template-modern.png';
-
 
 interface EditorProps {
   cvData: CvData;
@@ -49,8 +46,8 @@ const steps = [
 ];
 
 const templates = [
-  { id: 'classic', name: 'Classic', image: classicTemplateImg },
-  { id: 'modern', name: 'Modern', image: modernTemplateImg },
+  { id: 'classic', name: 'Classic', image: "https://placehold.co/400x566/f9f9f9/4a4a4a?text=Classic" },
+  { id: 'modern', name: 'Modern', image: "https://placehold.co/400x566/4a4a4a/f9f9f9?text=Modern" },
 ]
 
 const Editor: FC<EditorProps> = ({ cvData, setCvData }) => {
@@ -228,7 +225,7 @@ const Editor: FC<EditorProps> = ({ cvData, setCvData }) => {
                         cvData.template === template.id ? "border-primary ring-2 ring-primary/50" : "border-border hover:border-primary/50"
                     )}
                 >
-                  <Image src={template.image} alt={template.name} className="rounded-md" />
+                  <Image src={template.image} alt={template.name} width={400} height={566} className="rounded-md" />
                   <p className="text-center text-sm font-medium p-2">{template.name}</p>
                 </div>
               ))}
