@@ -30,12 +30,12 @@ const EditorPage: FC<EditorPageProps> = ({ params: { id } }) => {
     const currentCv = cvs.find(cv => cv.id === id);
     if (currentCv) {
       setCvData(currentCv);
-    } else if (cvs.length > 0) {
+    } else if (cvs.length > 0 && isClient) {
       // If no CV is found, redirect or handle appropriately
       // For now, let's just use the first one if it exists
       // router.push('/'); 
     }
-  }, [id, cvs]);
+  }, [id, cvs, isClient]);
 
   const updateCvData = (updatedCv: CvData) => {
     setCvData(updatedCv);

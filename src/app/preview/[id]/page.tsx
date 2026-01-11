@@ -29,10 +29,10 @@ const PreviewPage: FC<PreviewPageProps> = ({ params: { id } }) => {
     const currentCv = cvs.find(cv => cv.id === id);
     if (currentCv) {
       setCvData(currentCv);
-    } else if (cvs.length > 0) {
+    } else if (cvs.length > 0 && isClient) {
       // router.push('/');
     }
-  }, [id, cvs]);
+  }, [id, cvs, isClient]);
 
   const handlePrint = () => {
     window.print();
