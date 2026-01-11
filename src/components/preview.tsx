@@ -57,7 +57,7 @@ const Preview: FC<PreviewProps> = ({ cvData }) => {
 
           <Section title="Education">
             <div className="space-y-3">
-              {education.map((edu, index) => (
+              {Array.isArray(education) && education.map((edu, index) => (
                 <div key={index} className="text-xs">
                   <p className="font-semibold text-foreground">{edu.degree}</p>
                   <p>{edu.school}</p>
@@ -69,7 +69,7 @@ const Preview: FC<PreviewProps> = ({ cvData }) => {
 
           <Section title="Skills">
              <div className="flex flex-wrap gap-2 text-xs">
-                {skills.split(',').map((skill, index) => {
+                {skills && skills.split(',').map((skill, index) => {
                     const trimmedSkill = skill.trim();
                     if (trimmedSkill) {
                        return <span key={index} className="bg-primary/10 text-primary-foreground-dark px-2 py-1 rounded-full">{trimmedSkill}</span>
@@ -85,18 +85,20 @@ const Preview: FC<PreviewProps> = ({ cvData }) => {
                 <p className="text-sm">{profile}</p>
             </Section>
             
-            {experience && experience.length > 0 && experience[0].jobTitle && (
+            {experience && experience.length > 0 && experience.some(exp => exp.jobTitle) && (
               <Section title="Experience" icon={<Briefcase className="size-5" />}>
                 <div className="space-y-4">
                   {experience.map((exp, index) => (
-                    <div key={index}>
-                      <h3 className="font-semibold text-base text-foreground">{exp.jobTitle}</h3>
-                      <div className="flex justify-between items-center text-sm">
-                        <p>{exp.company}</p>
-                        <p className="text-muted-foreground">{exp.date}</p>
+                    exp.jobTitle && (
+                      <div key={index}>
+                        <h3 className="font-semibold text-base text-foreground">{exp.jobTitle}</h3>
+                        <div className="flex justify-between items-center text-sm">
+                          <p>{exp.company}</p>
+                          <p className="text-muted-foreground">{exp.date}</p>
+                        </div>
+                        <div className="text-sm mt-1 whitespace-pre-line">{exp.description}</div>
                       </div>
-                      <div className="text-sm mt-1 whitespace-pre-line">{exp.description}</div>
-                    </div>
+                    )
                   ))}
                 </div>
               </Section>
@@ -104,11 +106,13 @@ const Preview: FC<PreviewProps> = ({ cvData }) => {
 
             <Section title="Projects">
                 <div className="space-y-4">
-                  {projects.map((proj, index) => (
-                    <div key={index}>
-                      <h3 className="font-semibold text-base text-foreground">{proj.name}</h3>
-                      <div className="text-sm mt-1 whitespace-pre-line">{proj.description}</div>
-                    </div>
+                  {Array.isArray(projects) && projects.map((proj, index) => (
+                    proj.name && (
+                      <div key={index}>
+                        <h3 className="font-semibold text-base text-foreground">{proj.name}</h3>
+                        <div className="text-sm mt-1 whitespace-pre-line">{proj.description}</div>
+                      </div>
+                    )
                   ))}
                 </div>
             </Section>
