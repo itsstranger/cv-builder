@@ -2,8 +2,7 @@
 "use client";
 
 import type { Dispatch, SetStateAction, FC } from 'react';
-import React, { useState } from 'react';
-import Image from 'next/image';
+import React, from 'react';
 import {
   BrainCircuit,
   Contact,
@@ -25,7 +24,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ui/accordion';
 import { cn } from '@/lib/utils';
 
@@ -46,8 +44,8 @@ const steps = [
 ];
 
 const templates = [
-  { id: 'classic', name: 'Classic', image: "https://placehold.co/400x566/f9f9f9/4a4a4a?text=Classic" },
-  { id: 'modern', name: 'Modern', image: "https://placehold.co/400x566/4a4a4a/f9f9f9?text=Modern" },
+  { id: 'classic', name: 'Classic' },
+  { id: 'modern', name: 'Modern' },
 ]
 
 const Editor: FC<EditorProps> = ({ cvData, setCvData }) => {
@@ -115,7 +113,6 @@ const Editor: FC<EditorProps> = ({ cvData, setCvData }) => {
     }
   };
   
-  const progress = ((currentStep + 1) / steps.length) * 100;
   const CurrentIcon = steps[currentStep].icon;
 
   const renderListEditor = <T extends Education | Project | WorkExperience>(
@@ -173,7 +170,6 @@ const Editor: FC<EditorProps> = ({ cvData, setCvData }) => {
   return (
     <div className="p-4 space-y-6">
       <div className="space-y-2">
-         <Progress value={progress} className="h-2" />
          <div className="flex justify-between items-center">
             <p className="text-sm font-medium text-foreground/80 flex items-center gap-2">
                 <CurrentIcon className="size-4"/>
@@ -221,12 +217,11 @@ const Editor: FC<EditorProps> = ({ cvData, setCvData }) => {
                 <div key={template.id} 
                     onClick={() => setCvData(prev => ({ ...prev, template: template.id as 'classic' | 'modern' }))}
                     className={cn(
-                        "cursor-pointer rounded-lg border-2 transition-all",
-                        cvData.template === template.id ? "border-primary ring-2 ring-primary/50" : "border-border hover:border-primary/50"
+                        "cursor-pointer rounded-lg border-2 transition-all p-4 flex items-center justify-center h-24",
+                        cvData.template === template.id ? "border-primary ring-2 ring-primary/50 bg-primary/5" : "border-border hover:border-primary/50"
                     )}
                 >
-                  <Image src={template.image} alt={template.name} width={400} height={566} className="rounded-md" />
-                  <p className="text-center text-sm font-medium p-2">{template.name}</p>
+                  <p className="text-center text-lg font-medium p-2">{template.name}</p>
                 </div>
               ))}
             </div>
@@ -295,3 +290,5 @@ const Editor: FC<EditorProps> = ({ cvData, setCvData }) => {
 }
 
 export default Editor;
+
+    
