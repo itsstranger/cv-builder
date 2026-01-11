@@ -1,6 +1,6 @@
 import type { CvData } from './types';
 
-export const initialCvData: CvData = {
+export const initialCvData: Omit<CvData, 'id' | 'name'> = {
   personalInfo: {
     name: 'Jane Doe',
     jobTitle: 'Computer Science Student',

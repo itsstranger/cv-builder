@@ -26,6 +26,8 @@ export interface Project {
 }
 
 export interface CvData {
+  id?: string;
+  name?: string;
   personalInfo: PersonalInfo;
   profile: string;
   experience: WorkExperience[];
