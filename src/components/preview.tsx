@@ -60,16 +60,20 @@ const Preview: FC<PreviewProps> = ({ cvData }) => {
           </Section>
 
           <Section title="Education">
-            <div className="text-xs">
-                {renderWithLineBreaks(education)}
+            <div className="text-xs whitespace-pre-line">
+                {education}
             </div>
           </Section>
 
           <Section title="Skills">
              <div className="flex flex-wrap gap-2 text-xs">
-                {skills.split(',').map((skill, index) => (
-                    <span key={index} className="bg-primary/10 text-primary-foreground-dark px-2 py-1 rounded-full">{skill.trim()}</span>
-                ))}
+                {skills.split(',').map((skill, index) => {
+                    const trimmedSkill = skill.trim();
+                    if (trimmedSkill) {
+                       return <span key={index} className="bg-primary/10 text-primary-foreground-dark px-2 py-1 rounded-full">{trimmedSkill}</span>
+                    }
+                    return null;
+                })}
              </div>
           </Section>
         </div>
