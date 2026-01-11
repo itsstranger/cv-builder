@@ -1,0 +1,16 @@
+import type { CvData } from './types';
+
+export const initialCvData: CvData = {
+  personalInfo: {
+    name: 'Jane Doe',
+    jobTitle: 'Computer Science Student',
+    phone: '+1 234 567 890',
+    email: 'jane.doe@example.com',
+    linkedin: 'linkedin.com/in/janedoe',
+    avatarUrl: 'https://picsum.photos/seed/avatar/200/200',
+  },
+  profile: 'A passionate and driven computer science student with a strong foundation in software development and a keen interest in building innovative solutions. Eager to apply academic knowledge to real-world challenges and contribute to a dynamic team.',
+  education: 'B.Sc. in Computer Science - University of Technology (2021 - 2025)',
+  skills: 'JavaScript, React, Next.js, TypeScript, Node.js, Python, SQL, Git, Figma',
+  projects: '• AI-Powered CV Builder: Developed a web application using Next.js and Genkit AI to help students create and optimize their CVs.\n• E-commerce Platform: Built a full-stack e-commerce site with user authentication, product catalog, and payment integration.',
+};
