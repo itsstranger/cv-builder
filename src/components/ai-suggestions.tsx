@@ -1,13 +1,13 @@
 "use client";
 
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState, useEffect, useState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { BrainCircuit, Sparkles, Clipboard, Check } from 'lucide-react';
 import { generateSuggestions } from '@/lib/actions';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { useEffect, useState } from 'react';
 import { Alert, AlertDescription, AlertTitle } from './ui/alert';
 
 function SubmitButton() {
@@ -31,7 +31,7 @@ function SubmitButton() {
 
 export default function AiSuggestions() {
   const initialState = { suggestions: '', error: '' };
-  const [state, dispatch] = useFormState(generateSuggestions, initialState);
+  const [state, dispatch] = useActionState(generateSuggestions, initialState);
   const { toast } = useToast();
   const [copied, setCopied] = useState(false);
 
