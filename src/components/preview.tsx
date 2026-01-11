@@ -3,28 +3,24 @@
 import type { FC } from 'react';
 import Image from 'next/image';
 import type { CvData } from '@/lib/types';
-import { Mail, Phone, Linkedin, Globe } from 'lucide-react';
+import { Mail, Phone, Linkedin, Globe, Briefcase } from 'lucide-react';
 import { Separator } from './ui/separator';
 
 interface PreviewProps {
   cvData: CvData;
 }
 
-const Section: FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
+const Section: FC<{ title: string; children: React.ReactNode, icon?: React.ReactNode }> = ({ title, icon, children }) => (
   <section className="mb-6">
-    <h2 className="text-xl font-headline text-primary mb-2 border-b-2 border-accent pb-1">{title}</h2>
+    <h2 className="text-xl font-headline text-primary mb-2 border-b-2 border-accent pb-1 flex items-center gap-2">
+      {icon} {title}
+    </h2>
     <div className="text-sm text-foreground/80">{children}</div>
   </section>
 );
 
 const Preview: FC<PreviewProps> = ({ cvData }) => {
-  const { personalInfo, profile, education, skills, projects } = cvData;
-
-  const renderWithLineBreaks = (text: string) => {
-    return text.split('\n').map((line, index) => (
-      <p key={index} className="mb-1">{line}</p>
-    ));
-  };
+  const { personalInfo, profile, education, skills, projects, experience } = cvData;
 
   return (
     <div
@@ -50,7 +46,7 @@ const Preview: FC<PreviewProps> = ({ cvData }) => {
       </header>
 
       <div className="grid grid-cols-3 gap-8">
-        <div className="col-span-1">
+        <aside className="col-span-1">
           <Section title="Contact">
              <div className="space-y-2 text-xs">
                 {personalInfo.email && <div className="flex items-center gap-2"><Mail className="size-3.5 shrink-0" /><span>{personalInfo.email}</span></div>}
@@ -60,8 +56,14 @@ const Preview: FC<PreviewProps> = ({ cvData }) => {
           </Section>
 
           <Section title="Education">
-            <div className="text-xs whitespace-pre-line">
-                {education}
+            <div className="space-y-3">
+              {education.map((edu, index) => (
+                <div key={index} className="text-xs">
+                  <p className="font-semibold text-foreground">{edu.degree}</p>
+                  <p>{edu.school}</p>
+                  <p className="text-muted-foreground">{edu.date}</p>
+                </div>
+              ))}
             </div>
           </Section>
 
@@ -76,16 +78,41 @@ const Preview: FC<PreviewProps> = ({ cvData }) => {
                 })}
              </div>
           </Section>
-        </div>
+        </aside>
 
-        <div className="col-span-2">
+        <main className="col-span-2">
             <Section title="Profile">
                 <p className="text-sm">{profile}</p>
             </Section>
+            
+            {experience && experience.length > 0 && experience[0].jobTitle && (
+              <Section title="Experience" icon={<Briefcase className="size-5" />}>
+                <div className="space-y-4">
+                  {experience.map((exp, index) => (
+                    <div key={index}>
+                      <h3 className="font-semibold text-base text-foreground">{exp.jobTitle}</h3>
+                      <div className="flex justify-between items-center text-sm">
+                        <p>{exp.company}</p>
+                        <p className="text-muted-foreground">{exp.date}</p>
+                      </div>
+                      <div className="text-sm mt-1 whitespace-pre-line">{exp.description}</div>
+                    </div>
+                  ))}
+                </div>
+              </Section>
+            )}
+
             <Section title="Projects">
-                <div className="space-y-2 text-sm whitespace-pre-line">{projects}</div>
+                <div className="space-y-4">
+                  {projects.map((proj, index) => (
+                    <div key={index}>
+                      <h3 className="font-semibold text-base text-foreground">{proj.name}</h3>
+                      <div className="text-sm mt-1 whitespace-pre-line">{proj.description}</div>
+                    </div>
+                  ))}
+                </div>
             </Section>
-        </div>
+        </main>
       </div>
     </div>
   );
