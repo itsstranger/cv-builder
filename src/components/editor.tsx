@@ -2,7 +2,7 @@
 "use client";
 
 import type { Dispatch, SetStateAction, FC } from 'react';
-import React, from 'react';
+import React, { useState } from 'react';
 import {
   BrainCircuit,
   Contact,
@@ -290,5 +290,3 @@ const Editor: FC<EditorProps> = ({ cvData, setCvData }) => {
 }
 
 export default Editor;
-
-    
