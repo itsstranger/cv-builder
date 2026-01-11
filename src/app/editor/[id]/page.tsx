@@ -23,8 +23,10 @@ const EditorPage: FC<EditorPageProps> = ({ params }) => {
   const router = useRouter();
   const [cvs, setCvs] = useLocalStorage<CvData[]>('cv-list', []);
   const [cvData, setCvData] = useState<CvData | null>(null);
+  const [isClient, setIsClient] = useState(false);
   
   useEffect(() => {
+    setIsClient(true);
     const currentCv = cvs.find(cv => cv.id === params.id);
     if (currentCv) {
       setCvData(currentCv);
@@ -46,7 +48,7 @@ const EditorPage: FC<EditorPageProps> = ({ params }) => {
     window.print();
   };
 
-  if (!cvData) {
+  if (!isClient || !cvData) {
     return (
        <div className="min-h-screen w-full bg-background relative overflow-hidden p-4 md:p-6">
         <header className="container mx-auto flex items-center justify-between p-4 md:p-6">

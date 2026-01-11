@@ -32,11 +32,11 @@ const DashboardPage: FC = () => {
   useEffect(() => {
     setIsClient(true);
     // For first-time users, create a default CV
-    if (isClient && localStorage.getItem('cv-list') === null) {
+    if (localStorage.getItem('cv-list') === null) {
       const defaultCv = { ...initialCvData, id: crypto.randomUUID(), name: "My First CV" };
       setCvs([defaultCv]);
     }
-  }, [isClient, setCvs]);
+  }, [setCvs]);
 
   const createNewCv = () => {
     const newCv: CvData = {

@@ -22,8 +22,10 @@ const PreviewPage: FC<PreviewPageProps> = ({ params }) => {
   const router = useRouter();
   const [cvs] = useLocalStorage<CvData[]>('cv-list', []);
   const [cvData, setCvData] = useState<CvData | null>(null);
+  const [isClient, setIsClient] = useState(false);
   
   useEffect(() => {
+    setIsClient(true);
     const currentCv = cvs.find(cv => cv.id === params.id);
     if (currentCv) {
       setCvData(currentCv);
@@ -36,7 +38,7 @@ const PreviewPage: FC<PreviewPageProps> = ({ params }) => {
     window.print();
   };
 
-  if (!cvData) {
+  if (!isClient || !cvData) {
     return (
        <div className="min-h-screen w-full bg-background p-4 md:p-6 flex items-center justify-center">
           <Skeleton className="h-[80vh] w-full aspect-[210/297] max-w-[800px] rounded-lg" />
