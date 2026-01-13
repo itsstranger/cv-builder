@@ -174,7 +174,7 @@ curl http://localhost:9002/api/templates
 The `.env.local` file has been created with:
 
 ```env
-MONGODB_URI=mongodb+srv://rizvan:nfcbusiness@cluster0.23xn1ay.mongodb.net/cv_maker
+h
 ```
 
 **⚠️ Security Note**: This file is gitignored and won't be committed to version control.
