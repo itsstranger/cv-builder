@@ -174,7 +174,8 @@ curl http://localhost:9002/api/templates
 The `.env.local` file has been created with:
 
 ```env
-h
+s
+
 ```
 
 **⚠️ Security Note**: This file is gitignored and won't be committed to version control.
