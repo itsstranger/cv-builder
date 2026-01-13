@@ -12,7 +12,7 @@ interface AuthContextType {
   user: User | null;
   token: string | null;
   login: (email: string, password: string) => Promise<boolean>;
-  register: (name: string, email: string, password: string) => Promise<boolean>;
+  register: (name: string, email: string, password: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
   isLoading: boolean;
 }
@@ -64,7 +64,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const register = async (name: string, email: string, password: string): Promise<boolean> => {
+  const register = async (name: string, email: string, password: string): Promise<{ success: boolean; error?: string }> => {
     try {
       console.log('Attempting to register with:', { name, email, backendUrl: BACKEND_URL });
 
@@ -85,14 +85,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(data.data.user);
         localStorage.setItem('auth_token', data.data.token);
         localStorage.setItem('auth_user', JSON.stringify(data.data.user));
-        return true;
+        return { success: true };
       }
 
       console.error('Registration failed:', data.error || 'Unknown error');
-      return false;
+      return { success: false, error: data.error || 'Registration failed' };
     } catch (error) {
       console.error('Register error:', error);
-      return false;
+      return { success: false, error: error instanceof Error ? error.message : 'Network error or server unavailable' };
     }
   };
 

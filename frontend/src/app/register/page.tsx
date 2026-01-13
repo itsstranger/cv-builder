@@ -35,14 +35,14 @@ export default function RegisterPage() {
 
     setIsLoading(true);
 
-    const success = await register(name, email, password);
-    
-    if (success) {
+    const result = await register(name, email, password);
+
+    if (result.success) {
       router.push('/');
     } else {
-      setError('Registration failed. Email may already be in use.');
+      setError(result.error || 'Registration failed. Email may already be in use.');
     }
-    
+
     setIsLoading(false);
   };
 
